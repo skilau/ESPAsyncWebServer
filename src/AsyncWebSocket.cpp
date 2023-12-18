@@ -24,7 +24,7 @@
 #include <libb64/cencode.h>
 
 #ifndef ESP8266
-#if defined(USE_RP2040)
+#if defined(USE_RP2040) || defined(ARDUINO_ARCH_RP2040)
 #include "bearssl/bearssl.h"
 #include "bearssl/bearssl_hash.h"
 #else
@@ -1258,7 +1258,7 @@ AsyncWebSocketResponse::AsyncWebSocketResponse(const String& key, AsyncWebSocket
   }
 #ifdef ESP8266
   sha1(key + WS_STR_UUID, hash);
-#elif defined(USE_RP2040)
+#elif defined(USE_RP2040) || defined(ARDUINO_ARCH_RP2040)
   (String&)key += WS_STR_UUID;
   br_sha1_context ctx;
   br_sha1_init(&ctx);

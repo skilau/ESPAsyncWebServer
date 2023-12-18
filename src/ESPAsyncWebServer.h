@@ -34,7 +34,7 @@
 #elif defined(ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESPAsyncTCP.h>
-#elif defined(USE_RP2040)
+#elif defined(USE_RP2040) || defined(ARDUINO_ARCH_RP2040)
 #include <WiFi.h>
 #include <AsyncTCP_RP2040W.h>
 #else
