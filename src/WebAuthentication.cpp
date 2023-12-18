@@ -22,7 +22,7 @@
 #include <libb64/cencode.h>
 #ifdef ESP32
 #include "mbedtls/md5.h"
-#elif defined(USE_RP2040)
+#elif defined(USE_RP2040) || defined(ARDUINO_ARCH_RP2040)
 #include <MD5Builder.h>
 #else
 #include "md5.h"
@@ -63,7 +63,7 @@ bool checkBasicAuthentication(const char * hash, const char * username, const ch
 static bool getMD5(uint8_t * data, uint16_t len, char * output){//33 bytes or more
 #ifdef ESP32
     mbedtls_md5_context _ctx;
-#elif defined(USE_RP2040)
+#elif defined(USE_RP2040) || defined(ARDUINO_ARCH_RP2040)
     br_md5_context _ctx;
 #else
     md5_context_t _ctx;
@@ -78,7 +78,7 @@ static bool getMD5(uint8_t * data, uint16_t len, char * output){//33 bytes or mo
   mbedtls_md5_starts_ret(&_ctx);
   mbedtls_md5_update_ret(&_ctx, data, len);
   mbedtls_md5_finish_ret(&_ctx, _buf);
-#elif defined(USE_RP2040)
+#elif defined(USE_RP2040) || defined(ARDUINO_ARCH_RP2040)
   br_md5_init(&_ctx);
   br_md5_update(&_ctx, data, len);
   br_md5_state(&_ctx, _buf);
